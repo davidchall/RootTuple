@@ -4,8 +4,8 @@ find_package (ROOT REQUIRED)
 
 include_directories (${ROOT_INCLUDE_DIRS})
 
-add_library (${CMAKE_PROJECT_NAME} SHARED RootTuple.cxx)
+add_library (${CMAKE_PROJECT_NAME} SHARED RootTuple.cxx interface.cxx)
 target_link_libraries (${CMAKE_PROJECT_NAME} ${ROOT_LIBRARIES})
 
 install (TARGETS ${CMAKE_PROJECT_NAME} DESTINATION lib)
-install (FILES RootTuple.h DESTINATION include)
+install (FILES RootTuple.h interface.h DESTINATION include)
