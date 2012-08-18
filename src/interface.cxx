@@ -3,8 +3,13 @@
 // Declare global pointer
 RootTuple *eventHandler;
 
-void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename)
+// MacOS needs string, string, int, int
+// Linux needs string, int, string, int
+
+//void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename)
+void rootinit_(const char *filename, const char* treename, int lfilename, int ltreename)
 {
+    // Convert fortran strings to C strings
     const char *c_filename = strFtoC(filename, lfilename);
     const char *c_treename = strFtoC(treename, ltreename);
 
@@ -40,7 +45,7 @@ char* strFtoC(const char *str, int len)
     char tem;
 
     // Counts non-blank characters in a string str until a first blank character or the end of the string is met
-    while (str[tlen] != ' ' && (tlen < len) && (tem=str[tlen++],tem));
+    while(str[tlen] != ' ' && (tlen < len) && (tem = str[tlen++], tem));
 
     char *tstr = new char[tlen+1];
     strncpy(tstr, str, tlen);

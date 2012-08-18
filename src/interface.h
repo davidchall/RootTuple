@@ -9,8 +9,9 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename);
-	void rootaddparticle_(int barcode, double px, double py, double pz, double e);
+	//void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename);
+    void rootinit_(const char *filename, const char* treename, int lfilename, int ltreename);
+    void rootaddparticle_(int barcode, double px, double py, double pz, double e);
 	void rootaddevent_(int iteration, double weight);
 	void rootwrite_();
 	void rootclose_();
@@ -18,7 +19,8 @@ extern "C" {
 }
 #endif
 
-void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename);
+//void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename);
+void rootinit_(const char *filename, const char* treename, int lfilename, int ltreename);
 void rootaddparticle_(int barcode, double px, double py, double pz, double e);
 void rootaddevent_(int iteration, double weight);
 void rootwrite_();
