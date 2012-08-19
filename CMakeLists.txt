@@ -1,4 +1,7 @@
+# Require CMake-2.8.6 for FortranCInterface module
 cmake_minimum_required (VERSION 2.8.6)
+
+# Set project name and language dependencies
 project (RootTuple CXX C Fortran)
 
 # Create source archives using make dist
@@ -15,5 +18,3 @@ add_custom_target (dist COMMAND ${CMAKE_MAKE_PROGRAM} package_source)
 
 
 add_subdirectory (src)
-#add_subdirectory (examples)
-
