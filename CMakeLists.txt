@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 2.6)
-project (RootTuple)
+cmake_minimum_required (VERSION 2.8.6)
+project (RootTuple CXX C Fortran)
 
 # Create source archives using make dist
 set (CPACK_PACKAGE_VERSION_MAJOR 0)

@@ -3,43 +3,36 @@
 // Declare global pointer
 RootTuple *eventHandler;
 
-// MacOS needs string, string, int, int
-// Linux needs string, int, string, int
-
-//void rootinit_(const char *filename, int lfilename, const char* treename, int ltreename)
-void rootinit_(const char *filename, const char* treename, int lfilename, int ltreename)
+void rootinit(const char *filename, int lfilename)
 {
-    // Convert fortran strings to C strings
-    const char *c_filename = strFtoC(filename, lfilename);
-    const char *c_treename = strFtoC(treename, ltreename);
-
-    eventHandler = new RootTuple(std::string(c_filename), std::string(c_treename));
+    eventHandler = new RootTuple(strFtoC(filename, lfilename), "RootTuple");
     eventHandler->Initialise();
 }//rootinit
 
-void rootaddparticle_(int barcode, double px, double py, double pz, double e)
+void rootaddparticle(int *barcode, double *px, double *py, double *pz, double *e)
 {
-    eventHandler->AddParticle(barcode, px, py, pz, e);
+    eventHandler->AddParticle(*barcode, *px, *py, *pz, *e);
 }//rootaddparticle
 
-void rootaddevent_(int iteration, double weight)
+void rootaddevent(int *iteration, double *weight)
 {
-    eventHandler->SetIteration(iteration);
-    eventHandler->SetWeight(weight);
+    eventHandler->SetIteration(*iteration);
+    eventHandler->SetWeight(*weight);
     eventHandler->AddEvent();
 }//rootaddevent
 
-void rootwrite_()
+void rootwrite()
 {
     eventHandler->Write();
 }//rootwrite
 
-void rootclose_()
+void rootclose()
 {
     eventHandler->Close();
 }//rootclose
 
-char* strFtoC(const char *str, int len)
+// Converts a fortran string to a C string
+std::string strFtoC(const char *str, int len)
 {
     int tlen = 0;
     char tem;
@@ -51,5 +44,5 @@ char* strFtoC(const char *str, int len)
     strncpy(tstr, str, tlen);
     tstr[tlen] = '\0';
 
-    return tstr;
+    return std::string(tstr);
 }//strFtoC

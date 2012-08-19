@@ -23,8 +23,7 @@ m_filename(filename), m_treename(treename)
 		m_filename = "output.root";
 	}
 	if(filename.compare(filename.length() - fileExtension.length(), fileExtension.length(), fileExtension) != 0){
-		std::cout << "RootTuple:: Warning: Using default file name" << std::endl;
-		m_filename = "output.root";
+		m_filename = filename + ".root";
 	}
 }
 

@@ -1,8 +1,12 @@
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/Modules/)
 
 find_package (ROOT REQUIRED)
+include (FortranCInterface)
+FortranCInterface_VERIFY(CXX)
+FortranCInterface_HEADER(FC_namemangling.h)
 
 include_directories (${ROOT_INCLUDE_DIRS})
+include_directories (${CMAKE_BINARY_DIR}/src)
 
 add_library (${CMAKE_PROJECT_NAME} SHARED RootTuple.cxx interface.cxx)
 target_link_libraries (${CMAKE_PROJECT_NAME} ${ROOT_LIBRARIES})
