@@ -19,6 +19,7 @@ public:
 
     // Public methods
     void Initialise();
+    void SetCompressionLevel(int i);
     void AddEvent();
     void Write();
     void Close();

@@ -9,15 +9,20 @@ void rootinit(const char *filename, int lfilename)
     eventHandler->Initialise();
 }//rootinit
 
-void rootaddparticle(int *barcode, double *px, double *py, double *pz, double *e)
+void rootcompress(int i)
 {
-    eventHandler->AddParticle(*barcode, *px, *py, *pz, *e);
+    eventHandler->SetCompressionLevel(i);
+}//rootcompress
+
+void rootaddparticle(int barcode, double px, double py, double pz, double e)
+{
+    eventHandler->AddParticle(barcode, px, py, pz, e);
 }//rootaddparticle
 
-void rootaddevent(int *iteration, double *weight)
+void rootaddevent(int iteration, double weight)
 {
-    eventHandler->SetIteration(*iteration);
-    eventHandler->SetWeight(*weight);
+    eventHandler->SetIteration(iteration);
+    eventHandler->SetWeight(weight);
     eventHandler->AddEvent();
 }//rootaddevent
 

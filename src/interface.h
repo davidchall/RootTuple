@@ -8,8 +8,9 @@
 #include "RootTuple.h"
 
 void rootinit(const char *filename, int lfilename);
-void rootaddparticle(int *barcode, double *px, double *py, double *pz, double *e);
-void rootaddevent(int *iteration, double *weight);
+void rootcompress(int i);
+void rootaddparticle(int barcode, double px, double py, double pz, double e);
+void rootaddevent(int iteration, double weight);
 void rootwrite();
 void rootclose();
 
@@ -23,10 +24,12 @@ extern "C" {
 #endif
     void FortranCInterface_GLOBAL(rootinit,ROOTINIT)(const char *filename, int lfilename)
     {rootinit(filename, lfilename);};
+    void FortranCInterface_GLOBAL(rootcompress,ROOTCOMPRESS)(int *i)
+    {rootcompress(*i);};
     void FortranCInterface_GLOBAL(rootaddparticle,ROOTADDPARTICLE)(int *barcode, double *px, double *py, double *pz, double *e)
-    {rootaddparticle(barcode, px, py, pz, e);};
+    {rootaddparticle(*barcode, *px, *py, *pz, *e);};
     void FortranCInterface_GLOBAL(rootaddevent,ROOTADDEVENT)(int *iteration, double *weight)
-    {rootaddevent(iteration, weight);};
+    {rootaddevent(*iteration, *weight);};
     void FortranCInterface_GLOBAL(rootwrite,ROOTWRITE)()
     {rootwrite();};
     void FortranCInterface_GLOBAL(rootclose,ROOTCLOSE)()

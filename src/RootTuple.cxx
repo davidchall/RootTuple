@@ -45,6 +45,12 @@ void RootTuple::Initialise()
 	DeclareBranches();
 }//Initialise
 
+void RootTuple::SetCompressionLevel(int i)
+{
+	if(m_file)
+		m_file->SetCompressionLevel(i);
+}//SetCompressionLevel
+
 void RootTuple::AddEvent()
 {
 	// Check vectors sizes consistent
