@@ -1,5 +1,3 @@
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake/Modules/)
-
 # Find ROOT
 find_package (ROOT REQUIRED)
 include_directories (${ROOT_INCLUDE_DIR})
