@@ -25,7 +25,11 @@ public:
     void Close();
     void AddParticle(int barcode, double px, double py, double pz, double e);
     void SetWeight(double weight);
-    void SetIteration(int iteration);
+
+    void SetDoubleBranch(std::string branchname, double *ptr);
+    void SetFloatBranch(std::string branchname, float *ptr);
+    void SetIntBranch(std::string branchname, int *ptr);
+    void SetBoolBranch(std::string branchname, bool *ptr);
 
 private:
     // Private methods
@@ -39,7 +43,6 @@ private:
     std::string m_filename, m_treename;
 
     // Branch variables
-    Int_t m_iteration;
     Double_t m_weight;
     std::vector<Int_t> m_barcode;
     std::vector<Double_t> m_Px, m_Py, m_Pz, m_E;

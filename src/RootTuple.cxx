@@ -101,10 +101,41 @@ void RootTuple::SetWeight(double weight)
 	m_weight = weight;
 }//SetWeight
 
-void RootTuple::SetIteration(int iteration)
+void RootTuple::SetDoubleBranch(std::string branchname, double *ptr)
 {
-	m_iteration = iteration;
-}//SetIteration
+	if(m_tree->GetBranch(branchname.c_str()))
+		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
+	else{
+		m_tree->Branch(branchname.c_str(), ptr);
+	}
+}//SetDoubleBranch
+
+void RootTuple::SetFloatBranch(std::string branchname, float *ptr)
+{
+	if(m_tree->GetBranch(branchname.c_str()))
+		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
+	else{
+		m_tree->Branch(branchname.c_str(), ptr);
+	}
+}//SetDoubleBranch
+
+void RootTuple::SetIntBranch(std::string branchname, int *ptr)
+{
+	if(m_tree->GetBranch(branchname.c_str()))
+		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
+	else{
+		m_tree->Branch(branchname.c_str(), ptr);
+	}
+}//SetDoubleBranch
+
+void RootTuple::SetBoolBranch(std::string branchname, bool *ptr)
+{
+	if(m_tree->GetBranch(branchname.c_str()))
+		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
+	else{
+		m_tree->Branch(branchname.c_str(), ptr);
+	}
+}//SetDoubleBranch
 
 //------------------------------------------------------------------------------------
 // 
@@ -114,7 +145,6 @@ void RootTuple::SetIteration(int iteration)
 void RootTuple::DeclareBranches()
 {
 	m_tree->Branch("weight",    &m_weight);
-	m_tree->Branch("iteration", &m_iteration);
 
 	m_tree->Branch("barcode",   &m_barcode);
 	m_tree->Branch("Px",        &m_Px);

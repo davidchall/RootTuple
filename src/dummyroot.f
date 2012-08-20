@@ -3,6 +3,12 @@ C   Dummy routines for when not linked to RootTuple
       character*30 name
       end
 
+      subroutine rootwrite
+      end
+
+      subroutine rootclose
+      end
+
       subroutine rootcompress(i)
       integer i
       end
@@ -12,13 +18,27 @@ C   Dummy routines for when not linked to RootTuple
       double precision px,py,pz,e
       end
 
-      subroutine rootaddevent(it,wt)
-      integer it
-      double precision wt
+      subroutine rootaddevent(wgt)
+      double precision wgt
       end
 
-      subroutine rootwrite
+      subroutine rootsetdouble(val,branch)
+      double precision val
+      character*30 branch
       end
 
-      subroutine rootclose
+      subroutine rootsetfloat(val,branch)
+      real val
+      character*30 branch
       end
+
+      subroutine rootsetint(val,branch)
+      integer val
+      character*30 branch
+      end
+
+      subroutine rootsetbool(val,branch)
+      logical val
+      character*30 branch
+      end
+
