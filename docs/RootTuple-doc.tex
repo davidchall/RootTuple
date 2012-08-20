@@ -1,10 +1,10 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper,12pt]{article}
 \usepackage{fullpage}
 
 \begin{document}
 
-\title{RootTuple: A library enabling ROOT ntuple \\output from FORTRAN HEP programs}
-\author{David C. Hall}
+\title{RootTuple: A library enabling ROOT \emph{n}-tuple\\ output from FORTRAN HEP programs}
+\author{David C. Hall\\ The University of Oxford}
 \date{Version @CPACK_PACKAGE_VERSION@}
 \maketitle
 
@@ -12,9 +12,80 @@
 \newpage
 
 \section{Introduction}
+\label{sec:intro}
+There are two ways in which you might use the RootTuple library. The first is as an end user, in which case you can simply follow the instructions in \textsection\ref{sec:install}. The second is as a developer who wants to use the FORTRAN subroutines that it supplies. In this case, I give additional information about the library in the other sections.
+
+RootTuple consists of a C++ class (which handles the ROOT output) and a Fortran/C++ interface. The interface contains a wrapper which allows its C++ functions to be used as FORTRAN subroutines (see \textsection\ref{sec:routines}), and a global pointer to an instance of the C++ class.
 
 \section{Installation}
+\label{sec:install}
+Interfacing FORTRAN to C/C++ is filled with caveats, and for this reason we use the CMake build system\footnote{CMake is available at http://www.cmake.org/} to optimise the portability of the code. This version of RootTuple requires CMake-@CMAKE_MINIMUM_VERSION_REQUIRED@ or higher. Note that RootTuple may fail at runtime when using some of the more obscure FORTRAN compilers if they do not follow the standard convention for passing character arrays as arguments.
+
+In order to output the \emph{n}-tuples, we also require that the ROOT data analysis framework is installed\footnote{ROOT is available at http://root.cern.ch/drupal/}. We recommend using ROOT-5.26 or higher.
+
+\begin{enumerate}
+    \item Download source tarball and extract:\begin{verbatim}
+wget http://www.notsureyet.com/RootTuple-@CPACK_PACKAGE_VERSION@.tar.gz
+tar -xzvf RootTuple-@CPACK_PACKAGE_VERSION@.tar.gz\end{verbatim}
+    \item Build in a separate binary directory:\begin{verbatim}
+mkdir build
+cd build
+cmake -DCMAKE_INSTALL_PREFIX=<prefix> ../RootTuple-@CPACK_PACKAGE_VERSION@
+make\end{verbatim}
+    \item Install to the \verb|<prefix>| directory:\begin{verbatim}
+make install\end{verbatim}
+    \item The binary directory is no longer required and can be deleted if desired.
+\end{enumerate}
 
 \section{Use within FORTRAN HEP programs}
+\label{sec:usage}
+\subsection{Basic usage}
+The minimal use of the subroutines to output a ROOT \emph{n}-tuple is (see \textsection\ref{sec:routines} for subroutine descriptions):
+\begin{enumerate}
+    \item Use \verb|ROOTINIT| during initialisation
+    \item For each event:
+    \begin{enumerate}
+        \item Use \verb|ROOTADDPARTICLE| on each final state particle
+        \item Use \verb|ROOTADDEVENT|
+    \end{enumerate}
+    \item Use \verb|ROOTCLOSE| during exit
+\end{enumerate}
+
+\uppercase{\textbf{Talk about makefiles (ROOT?) and dummy routines}}
+
+\subsection{Advanced usage}
+
+\uppercase{\textbf{Talk about additional routines}}
+
+\section{List of FORTRAN subroutines provided}
+\label{sec:routines}
+\begin{verbatim}
+    SUBROUTINE ROOTINIT(FILENAME)
+    CHARACTER*n FILENAME\end{verbatim}
+This subroutine opens a new ROOT file with name equal to the string \verb|FILENAME|. If \verb|FILENAME| does not end in \verb|.root| this will be appended automatically. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
+
+\begin{verbatim}
+    SUBROUTINE ROOTWRITE\end{verbatim}
+This subroutine will create a new key in the TTree (see ROOT documentation for more information). This is not required to write the data to disk.
+
+\begin{verbatim}
+    SUBROUTINE ROOTCLOSE\end{verbatim}
+This subroutine closes the ROOT file.
+
+\begin{verbatim}
+    SUBROUTINE ROOTADDPARTICLE(CODE,PX,PY,PZ,E)
+    INTEGER CODE
+    DOUBLE PRECISION PX,PY,PZ,E\end{verbatim}
+This subroutine adds a particle to the event. \verb|CODE| is an integer used to identify the particle, according to the PDG Monte Carlo particle numbering scheme. \verb|(PX,PY,PZ,E)| is the four-momentum of the particle.
+
+\begin{verbatim}
+    SUBROUTINE ROOTADDEVENT(WGT)
+    DOUBLE PRECISION WGT\end{verbatim}
+This subroutine adds an event to the \emph{n}-tuple with an event weight of \verb|WGT|. This subroutine must be used after all the particles have been added to the event using \verb|ROOTADDPARTICLE|.
+
+\begin{verbatim}
+    SUBROUTINE ROOTCOMPRESS(I)
+    INTEGER I\end{verbatim}
+This subroutine selects the compression level of the output file. \verb|I| must be an integer between 0 and 9, where 0 represents no compression and 9 represents maximal compression. The default value is 1.
 
 \end{document}

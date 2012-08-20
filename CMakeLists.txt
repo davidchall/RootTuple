@@ -1,5 +1,6 @@
 # Require CMake-2.8.6 for FortranCInterface module
-cmake_minimum_required (VERSION 2.8.6)
+set (CMAKE_MINIMUM_VERSION_REQUIRED 2.8.6)
+cmake_minimum_required (VERSION ${CMAKE_MINIMUM_VERSION_REQUIRED})
 
 # Set project name and language dependencies
 project (RootTuple CXX C Fortran)
