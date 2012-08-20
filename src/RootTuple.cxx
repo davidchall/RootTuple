@@ -8,7 +8,7 @@
 RootTuple::RootTuple() :
 m_filename("output.root"), m_treename("tree")
 {
-}
+}//Constructor
 
 RootTuple::RootTuple(std::string filename, std::string treename) :
 m_filename(filename), m_treename(treename)
@@ -25,7 +25,11 @@ m_filename(filename), m_treename(treename)
 	if(filename.compare(filename.length() - fileExtension.length(), fileExtension.length(), fileExtension) != 0){
 		m_filename = filename + ".root";
 	}
-}
+}//Constructor
+
+RootTuple::~RootTuple()
+{
+}//Destructor
 
 void RootTuple::Initialise()
 {
@@ -47,7 +51,7 @@ void RootTuple::Initialise()
 
 void RootTuple::SetCompressionLevel(int i)
 {
-	if(m_file)
+	if(m_file && i >= 0 && i <= 9)
 		m_file->SetCompressionLevel(i);
 }//SetCompressionLevel
 

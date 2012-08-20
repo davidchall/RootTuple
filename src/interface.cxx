@@ -34,6 +34,7 @@ void rootwrite()
 void rootclose()
 {
     eventHandler->Close();
+    delete eventHandler;
 }//rootclose
 
 // Converts a fortran string to a C string
