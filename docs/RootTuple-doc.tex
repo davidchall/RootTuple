@@ -34,7 +34,7 @@ cmake -DCMAKE_INSTALL_PREFIX=<prefix> ../RootTuple-@CPACK_PACKAGE_VERSION@
 make\end{verbatim}
     \item Install to the \verb|<prefix>| directory:\begin{verbatim}
 make install\end{verbatim}
-    \item The binary directory is no longer required and can be deleted if desired.
+    \item The \verb|build| directory is no longer required and can be deleted if desired.
 \end{enumerate}
 
 \section{Use within FORTRAN HEP programs}
@@ -54,11 +54,15 @@ The minimal use of the subroutines to output a ROOT \emph{n}-tuple is (see \text
 \uppercase{\textbf{Talk about makefiles (ROOT?) and dummy routines}}
 
 \subsection{Advanced usage}
-
-\uppercase{\textbf{Talk about additional routines}}
+Some additional subroutines are provided to give greater control over the output files. For details, please see \textsection\ref{sec:routines}.
+\begin{itemize}
+    \item The \verb|ROOTCOMPRESS| subroutine allows the developer/user to choose the level of compression of the output file. Quick studies have shown that the file size can be reduced by a factor of \textbf{???}.
+    \item The \verb|ROOTSETxxxxx| subroutines allow the developer to add custom variables to the output file. Supported FORTRAN data types are \verb|DOUBLE PRECISION|, \verb|REAL|, \verb|INTEGER| and \verb|LOGICAL| which correspond to the \verb|double|, \verb|float|, \verb|int| and \verb|bool| C++ data types, respectively. Note that these variables must be set once per event, and before the \verb|ROOTADDEVENT| subroutine is called.
+\end{itemize}
 
 \section{List of FORTRAN subroutines provided}
 \label{sec:routines}
+\subsection{Basic subroutines}
 \begin{verbatim}
     SUBROUTINE ROOTINIT(FILENAME)
     CHARACTER*n FILENAME\end{verbatim}
@@ -83,9 +87,34 @@ This subroutine adds a particle to the event. \verb|CODE| is an integer used to 
     DOUBLE PRECISION WGT\end{verbatim}
 This subroutine adds an event to the \emph{n}-tuple with an event weight of \verb|WGT|. This subroutine must be used after all the particles have been added to the event using \verb|ROOTADDPARTICLE|.
 
+\subsection{Advanced subroutines}
 \begin{verbatim}
     SUBROUTINE ROOTCOMPRESS(I)
     INTEGER I\end{verbatim}
 This subroutine selects the compression level of the output file. \verb|I| must be an integer between 0 and 9, where 0 represents no compression and 9 represents maximal compression. The default value is 1.
+
+\begin{verbatim}
+    SUBROUTINE ROOTSETDOUBLE(VAL,BRANCH)
+    DOUBLE PRECISION VAL
+    CHARACTER*n BRANCH\end{verbatim}
+This subroutine adds a double precision variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
+
+\begin{verbatim}
+    SUBROUTINE ROOTSETFLOAT(VAL,BRANCH)
+    REAL VAL
+    CHARACTER*n BRANCH\end{verbatim}
+This subroutine adds a single precision variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
+
+\begin{verbatim}
+    SUBROUTINE ROOTSETINT(VAL,BRANCH)
+    INTEGER VAL
+    CHARACTER*n BRANCH\end{verbatim}
+This subroutine adds an integer variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
+
+\begin{verbatim}
+    SUBROUTINE ROOTSETBOOL(VAL,BRANCH)
+    LOGICAL VAL
+    CHARACTER*n BRANCH\end{verbatim}
+This subroutine adds a boolean variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
 
 \end{document}
