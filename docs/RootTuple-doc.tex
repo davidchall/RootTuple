@@ -21,7 +21,7 @@ RootTuple consists of a C++ class (which handles the ROOT output) and a Fortran/
 \label{sec:install}
 Interfacing FORTRAN to C/C++ is filled with caveats, and for this reason we use the CMake build system\footnote{CMake is available at http://www.cmake.org/} to optimise the portability of the code. This version of RootTuple requires CMake-@CMAKE_MINIMUM_VERSION_REQUIRED@ or higher. Note that RootTuple may fail at runtime when using some of the more obscure FORTRAN compilers if they do not follow the standard convention for passing character arrays as arguments.
 
-In order to output the \emph{n}-tuples, we also require that the ROOT data analysis framework is installed\footnote{ROOT is available at http://root.cern.ch/drupal/}. We recommend using ROOT-5.26 or higher.
+In order to output the \emph{n}-tuples, we also require that the ROOT data analysis framework is installed\footnote{ROOT is available at http://root.cern.ch/drupal/}. We recommend using ROOT-5.26 or higher. The ROOT setup script must be sourced before the installation of RootTuple.
 
 \begin{enumerate}
     \item Download source tarball and extract:\begin{verbatim}
@@ -51,12 +51,15 @@ The minimal use of the subroutines to output a ROOT \emph{n}-tuple is (see \text
     \item Use \verb|ROOTCLOSE| during exit
 \end{enumerate}
 
-\uppercase{\textbf{Talk about makefiles (ROOT?) and dummy routines}}
+When building your program you must link to the RootTuple library, the location of which will be supplied by the end user. Since new subroutines will be called from the program, compilation will fail if the RootTuple library is not linked. For this reason, a file \verb|dummyroot.f| containing dummy routines has been included in the RootTuple source code. This should be built in the case when the RootTuple library has not been linked to.
+
+The linker must also be able to find the ROOT libraries themselves. The easiest way to do this is to source the ROOT setup script, which should set the environment variables correctly.
+
+At runtime, the end user must add the location of the RootTuple library to their \verb|LD_LIBRARY_PATH| (\verb|DYLD_LIBRARY_PATH| for MacOS). The same is also true for the ROOT libraries (again it is easiest to source the ROOT setup script.)
 
 \subsection{Advanced usage}
 Some additional subroutines are provided to give greater control over the output files. For details, please see \textsection\ref{sec:routines}.
 \begin{itemize}
-    \item The \verb|ROOTCOMPRESS| subroutine allows the developer/user to choose the level of compression of the output file. Quick studies have shown that the file size can be reduced by a factor of \textbf{???}.
     \item The \verb|ROOTSETxxxxx| subroutines allow the developer to add custom variables to the output file. Supported FORTRAN data types are \verb|DOUBLE PRECISION|, \verb|REAL|, \verb|INTEGER| and \verb|LOGICAL| which correspond to the \verb|double|, \verb|float|, \verb|int| and \verb|bool| C++ data types, respectively. Note that these variables must be set once per event, and before the \verb|ROOTADDEVENT| subroutine is called.
 \end{itemize}
 
@@ -88,11 +91,6 @@ This subroutine adds a particle to the event. \verb|CODE| is an integer used to 
 This subroutine adds an event to the \emph{n}-tuple with an event weight of \verb|WGT|. This subroutine must be used after all the particles have been added to the event using \verb|ROOTADDPARTICLE|.
 
 \subsection{Advanced subroutines}
-\begin{verbatim}
-    SUBROUTINE ROOTCOMPRESS(I)
-    INTEGER I\end{verbatim}
-This subroutine selects the compression level of the output file. \verb|I| must be an integer between 0 and 9, where 0 represents no compression and 9 represents maximal compression. The default value is 1.
-
 \begin{verbatim}
     SUBROUTINE ROOTSETDOUBLE(VAL,BRANCH)
     DOUBLE PRECISION VAL

@@ -1,16 +1,13 @@
 C   Dummy routines for when not linked to RootTuple
       subroutine rootinit(name)
       character*30 name
+      write(*,*)'This program has not been linked to RootTuple'
       end
 
       subroutine rootwrite
       end
 
       subroutine rootclose
-      end
-
-      subroutine rootcompress(i)
-      integer i
       end
 
       subroutine rootaddparticle(code,px,py,pz,e)

@@ -9,11 +9,6 @@ void rootinit(const char *filename, int lfilename)
     eventHandler->Initialise();
 }//rootinit
 
-void rootcompress(int i)
-{
-    eventHandler->SetCompressionLevel(i);
-}//rootcompress
-
 void rootwrite()
 {
     eventHandler->Write();

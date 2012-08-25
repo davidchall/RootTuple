@@ -49,12 +49,6 @@ void RootTuple::Initialise()
 	DeclareBranches();
 }//Initialise
 
-void RootTuple::SetCompressionLevel(int i)
-{
-	if(m_file && i >= 0 && i <= 9)
-		m_file->SetCompressionLevel(i);
-}//SetCompressionLevel
-
 void RootTuple::AddEvent()
 {
 	// Check vectors sizes consistent
@@ -139,7 +133,7 @@ void RootTuple::SetBoolBranch(std::string branchname, bool *ptr)
 
 //------------------------------------------------------------------------------------
 // 
-//                                  Public methods
+//                                  Private methods
 // 
 //------------------------------------------------------------------------------------
 void RootTuple::DeclareBranches()

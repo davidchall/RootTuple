@@ -10,7 +10,6 @@
 void rootinit(const char *filename, int lfilename);
 void rootwrite();
 void rootclose();
-void rootcompress(int i);
 
 void rootaddparticle(int barcode, double px, double py, double pz, double e);
 void rootaddevent(double weight);
@@ -30,8 +29,6 @@ extern "C" {
 #endif
     void FortranCInterface_GLOBAL(rootinit,ROOTINIT)(const char *filename, int lfilename)
     {rootinit(filename, lfilename);};
-    void FortranCInterface_GLOBAL(rootcompress,ROOTCOMPRESS)(int *i)
-    {rootcompress(*i);};
     void FortranCInterface_GLOBAL(rootwrite,ROOTWRITE)()
     {rootwrite();};
     void FortranCInterface_GLOBAL(rootclose,ROOTCLOSE)()
