@@ -20,4 +20,3 @@ add_library (RootTuple SHARED ${RootTuple_SOURCES})
 target_link_libraries (RootTuple ${ROOT_LIBRARIES})
 
 install (TARGETS RootTuple DESTINATION lib)
-install (FILES ${RootTuple_HEADERS} DESTINATION include)
