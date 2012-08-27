@@ -19,22 +19,22 @@ C   Dummy routines for when not linked to RootTuple
       double precision wgt
       end
 
-      subroutine rootsetdouble(val,branch)
+      subroutine rootadddouble(val,branch)
       double precision val
       character*30 branch
       end
 
-      subroutine rootsetfloat(val,branch)
+      subroutine rootaddfloat(val,branch)
       real val
       character*30 branch
       end
 
-      subroutine rootsetint(val,branch)
+      subroutine rootaddint(val,branch)
       integer val
       character*30 branch
       end
 
-      subroutine rootsetbool(val,branch)
+      subroutine rootaddbool(val,branch)
       logical val
       character*30 branch
       end

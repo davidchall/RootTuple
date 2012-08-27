@@ -14,10 +14,10 @@ void rootclose();
 void rootaddparticle(int barcode, double px, double py, double pz, double e);
 void rootaddevent(double weight);
 
-void rootsetdouble(double *ptr, const char* branchname, int lbranchname);
-void rootsetfloat(float *ptr, const char* branchname, int lbranchname);
-void rootsetint(int *ptr, const char* branchname, int lbranchname);
-void rootsetbool(bool *ptr, const char* branchname, int lbranchname);
+void rootadddouble(double *ptr, const char* branchname, int lbranchname);
+void rootaddfloat(float *ptr, const char* branchname, int lbranchname);
+void rootaddint(int *ptr, const char* branchname, int lbranchname);
+void rootaddbool(bool *ptr, const char* branchname, int lbranchname);
 
 std::string strFtoC(const char *str, int len);
 
@@ -39,14 +39,14 @@ extern "C" {
     void FortranCInterface_GLOBAL(rootaddevent,ROOTADDEVENT)(double *weight)
     {rootaddevent(*weight);};
 
-    void FortranCInterface_GLOBAL(rootsetdouble,ROOTSETDOUBLE)(double *ptr, const char *branchname, int lbranchname)
-    {rootsetdouble(ptr, branchname, lbranchname);};
-    void FortranCInterface_GLOBAL(rootsetfloat,ROOTSETFLOAT)(float *ptr, const char *branchname, int lbranchname)
-    {rootsetfloat(ptr, branchname, lbranchname);};
-    void FortranCInterface_GLOBAL(rootsetint,ROOTSETINT)(int *ptr, const char *branchname, int lbranchname)
-    {rootsetint(ptr, branchname, lbranchname);};
-    void FortranCInterface_GLOBAL(rootsetbool,ROOTSETBOOL)(bool *ptr, const char *branchname, int lbranchname)
-    {rootsetbool(ptr, branchname, lbranchname);};
+    void FortranCInterface_GLOBAL(rootadddouble,ROOTADDDOUBLE)(double *ptr, const char *branchname, int lbranchname)
+    {rootadddouble(ptr, branchname, lbranchname);};
+    void FortranCInterface_GLOBAL(rootaddfloat,ROOTADDFLOAT)(float *ptr, const char *branchname, int lbranchname)
+    {rootaddfloat(ptr, branchname, lbranchname);};
+    void FortranCInterface_GLOBAL(rootaddint,ROOTADDINT)(int *ptr, const char *branchname, int lbranchname)
+    {rootaddint(ptr, branchname, lbranchname);};
+    void FortranCInterface_GLOBAL(rootaddbool,ROOTADDBOOL)(bool *ptr, const char *branchname, int lbranchname)
+    {rootaddbool(ptr, branchname, lbranchname);};
 #ifdef __cplusplus
 }
 #endif

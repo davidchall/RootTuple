@@ -31,25 +31,25 @@ void rootaddevent(double weight)
     eventHandler->AddEvent();
 }//rootaddevent
 
-void rootsetdouble(double *ptr, const char* branchname, int lbranchname)
+void rootadddouble(double *ptr, const char* branchname, int lbranchname)
 {
     eventHandler->SetDoubleBranch(strFtoC(branchname, lbranchname), ptr);
-}//rootsetdouble
+}//rootadddouble
 
-void rootsetfloat(float *ptr, const char* branchname, int lbranchname)
+void rootaddfloat(float *ptr, const char* branchname, int lbranchname)
 {
     eventHandler->SetFloatBranch(strFtoC(branchname, lbranchname), ptr);
-}//rootsetfloat
+}//rootaddfloat
 
-void rootsetint(int *ptr, const char* branchname, int lbranchname)
+void rootaddint(int *ptr, const char* branchname, int lbranchname)
 {
     eventHandler->SetIntBranch(strFtoC(branchname, lbranchname), ptr);
-}//rootsetint
+}//rootaddint
 
-void rootsetbool(bool *ptr, const char* branchname, int lbranchname)
+void rootaddbool(bool *ptr, const char* branchname, int lbranchname)
 {
     eventHandler->SetBoolBranch(strFtoC(branchname, lbranchname), ptr);
-}//rootsetbool
+}//rootaddbool
 
 // Converts a fortran string to a C string
 std::string strFtoC(const char *str, int len)

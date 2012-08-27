@@ -60,7 +60,7 @@ At runtime, the end user must add the location of the RootTuple library to their
 \subsection{Advanced usage}
 Some additional subroutines are provided to give greater control over the output files. For details, please see \textsection\ref{sec:routines}.
 \begin{itemize}
-    \item The \verb|ROOTSETxxxxx| subroutines allow the developer to add custom variables to the output file. Supported FORTRAN data types are \verb|DOUBLE PRECISION|, \verb|REAL|, \verb|INTEGER| and \verb|LOGICAL| which correspond to the \verb|double|, \verb|float|, \verb|int| and \verb|bool| C++ data types, respectively. Note that these variables must be set once per event, and before the \verb|ROOTADDEVENT| subroutine is called.
+    \item The \verb|ROOTADDxxxxx| subroutines allow the developer to add custom variables to the output file. Supported FORTRAN data types are \verb|DOUBLE PRECISION|, \verb|REAL|, \verb|INTEGER| and \verb|LOGICAL| which correspond to the \verb|double|, \verb|float|, \verb|int| and \verb|bool| C++ data types, respectively. Note that these variables must be set once per event, and before the \verb|ROOTADDEVENT| subroutine is called.
 \end{itemize}
 
 \section{List of FORTRAN subroutines provided}
@@ -92,25 +92,25 @@ This subroutine adds an event to the \emph{n}-tuple with an event weight of \ver
 
 \subsection{Advanced subroutines}
 \begin{verbatim}
-    SUBROUTINE ROOTSETDOUBLE(VAL,BRANCH)
+    SUBROUTINE ROOTADDDOUBLE(VAL,BRANCH)
     DOUBLE PRECISION VAL
     CHARACTER*n BRANCH\end{verbatim}
 This subroutine adds a double precision variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
 
 \begin{verbatim}
-    SUBROUTINE ROOTSETFLOAT(VAL,BRANCH)
+    SUBROUTINE ROOTADDFLOAT(VAL,BRANCH)
     REAL VAL
     CHARACTER*n BRANCH\end{verbatim}
 This subroutine adds a single precision variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
 
 \begin{verbatim}
-    SUBROUTINE ROOTSETINT(VAL,BRANCH)
+    SUBROUTINE ROOTADDINT(VAL,BRANCH)
     INTEGER VAL
     CHARACTER*n BRANCH\end{verbatim}
 This subroutine adds an integer variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
 
 \begin{verbatim}
-    SUBROUTINE ROOTSETBOOL(VAL,BRANCH)
+    SUBROUTINE ROOTADDBOOL(VAL,BRANCH)
     LOGICAL VAL
     CHARACTER*n BRANCH\end{verbatim}
 This subroutine adds a boolean variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
