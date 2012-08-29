@@ -1,11 +1,21 @@
+//----------------------------------------------------------------------
+//                             RootTuple
+//  Author:  David Hall
+//  Date:    29th August 2012
+//
+//  This is the interface declaration. It uses a wrapper from the
+//  implementation to the symbols that the FORTRAN compiler will
+//  find. It uses macros found in FC_namemangling.h to get the name
+//  mangling correct for the user's compiler. These macros are output
+//  by CMake during build, but the user could define them if needed.
+//
+//----------------------------------------------------------------------
+
 #ifndef interface_H
 #define interface_H
 
-// Standard C++ libraries
 #include <string>
-
 #include "FC_namemangling.h"
-#include "RootTuple.h"
 
 void rootinit(const char *filename, int lfilename);
 void rootwrite();

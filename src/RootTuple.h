@@ -1,3 +1,12 @@
+//----------------------------------------------------------------------
+//                             RootTuple
+//  Author:  David Hall
+//  Date:    29th August 2012
+//
+//  This declares the RootTuple class.
+//
+//----------------------------------------------------------------------
+
 #ifndef RootTuple_H
 #define RootTuple_H
 

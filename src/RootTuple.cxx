@@ -1,10 +1,17 @@
+//----------------------------------------------------------------------
+//                             RootTuple
+//  Author:  David Hall
+//  Date:    29th August 2012
+//
+//  This is the implementation of the RootTuple class.
+//
+//----------------------------------------------------------------------
+
 #include "RootTuple.h"
 
-//------------------------------------------------------------------------------------
-// 
-//                                  Public methods
-// 
-//------------------------------------------------------------------------------------
+//--------------------------------------------------------------
+//                        Public methods
+//--------------------------------------------------------------
 RootTuple::RootTuple() :
 m_filename("output.root"), m_treename("tree")
 {
@@ -13,16 +20,16 @@ m_filename("output.root"), m_treename("tree")
 RootTuple::RootTuple(std::string filename, std::string treename) :
 m_filename(filename), m_treename(treename)
 {
-	if(treename.empty()){
+	if (treename.empty()){
 		std::cout << "RootTuple:: Warning: Using default tree name" << std::endl;
 		m_treename = "tree";
 	}
 	std::string fileExtension = ".root";
-	if(filename.length() <= fileExtension.length()){
+	if (filename.length() <= fileExtension.length()){
 		std::cout << "RootTuple:: Warning: Using default file name" << std::endl;
 		m_filename = "output.root";
 	}
-	if(filename.compare(filename.length() - fileExtension.length(), fileExtension.length(), fileExtension) != 0){
+	if (filename.compare(filename.length() - fileExtension.length(), fileExtension.length(), fileExtension) != 0){
 		m_filename = filename + ".root";
 	}
 }//Constructor
@@ -35,16 +42,15 @@ void RootTuple::Initialise()
 {
 	// Create TFile object
 	m_file = new TFile(m_filename.c_str(), "RECREATE");
-	if(!m_file){
+	if (!m_file){
 		std::cout << "RootTuple:: Error: Cannot create ROOT file" << std::endl;
 		return;
 	}
 
 	// Create TTree object
 	m_tree = new TTree(m_treename.c_str(), m_treename.c_str());
-	if(!m_tree){
+	if (!m_tree)
 		std::cout << "RootTuple:: Error: Cannot create ROOT tree" << std::endl;
-	}
 
 	DeclareBranches();
 }//Initialise
@@ -52,19 +58,20 @@ void RootTuple::Initialise()
 void RootTuple::AddEvent()
 {
 	// Check vectors sizes consistent
-	if ((int)m_Px.size() != m_barcode.size() ||
-		(int)m_Py.size() != m_barcode.size() ||
-		(int)m_Pz.size() != m_barcode.size() ||
-		(int)m_E.size()  != m_barcode.size())
+	if ((int)m_Px.size() != (int)m_barcode.size() ||
+		(int)m_Py.size() != (int)m_barcode.size() ||
+		(int)m_Pz.size() != (int)m_barcode.size() ||
+		(int)m_E.size()  != (int)m_barcode.size())
 		std::cout << "RootTuple:: Warning: Inconsistent vector sizes" << std::endl;
 
+	// Add data to file and reset vectors
 	FillBranches();
 	ClearVectors();
 }//AddEvent
 
 void RootTuple::Write()
 {
-	if(m_file)
+	if (m_file)
 		m_file->Write();
 	else
 		std::cout << "RootTuple:: Error: No ROOT file was opened" << std::endl;
@@ -72,7 +79,7 @@ void RootTuple::Write()
 
 void RootTuple::Close()
 {
-	if(m_file){
+	if (m_file){
 		m_file->Write();
 		m_file->Close();
 		delete m_file;
@@ -97,49 +104,43 @@ void RootTuple::SetWeight(double weight)
 
 void RootTuple::SetDoubleBranch(std::string branchname, double *ptr)
 {
-	if(m_tree->GetBranch(branchname.c_str()))
+	if (m_tree->GetBranch(branchname.c_str()))
 		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
-	else{
+	else
 		m_tree->Branch(branchname.c_str(), ptr);
-	}
 }//SetDoubleBranch
 
 void RootTuple::SetFloatBranch(std::string branchname, float *ptr)
 {
-	if(m_tree->GetBranch(branchname.c_str()))
+	if (m_tree->GetBranch(branchname.c_str()))
 		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
-	else{
+	else
 		m_tree->Branch(branchname.c_str(), ptr);
-	}
 }//SetDoubleBranch
 
 void RootTuple::SetIntBranch(std::string branchname, int *ptr)
 {
-	if(m_tree->GetBranch(branchname.c_str()))
+	if (m_tree->GetBranch(branchname.c_str()))
 		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
-	else{
+	else
 		m_tree->Branch(branchname.c_str(), ptr);
-	}
 }//SetDoubleBranch
 
 void RootTuple::SetBoolBranch(std::string branchname, bool *ptr)
 {
-	if(m_tree->GetBranch(branchname.c_str()))
+	if (m_tree->GetBranch(branchname.c_str()))
 		m_tree->GetBranch(branchname.c_str())->SetAddress(ptr);
-	else{
+	else
 		m_tree->Branch(branchname.c_str(), ptr);
-	}
 }//SetDoubleBranch
 
-//------------------------------------------------------------------------------------
-// 
-//                                  Private methods
-// 
-//------------------------------------------------------------------------------------
+//--------------------------------------------------------------
+//                       Private methods
+//--------------------------------------------------------------
 void RootTuple::DeclareBranches()
 {
+	// Declare required branches
 	m_tree->Branch("weight",    &m_weight);
-
 	m_tree->Branch("barcode",   &m_barcode);
 	m_tree->Branch("Px",        &m_Px);
 	m_tree->Branch("Py",        &m_Py);

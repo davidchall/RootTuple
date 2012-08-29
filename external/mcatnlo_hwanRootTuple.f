@@ -1,12 +1,24 @@
-C     MC@NLO+HERWIG ANALYSIS USING ROOTTUPLE LIBRARY TO OUTPUT
-C     EVENTS IN A ROOT NTUPLE
+C-----------------------------------------------------------------------
+C                              RootTuple
+C   Author:  David Hall
+C   Date:    29th August 2012
+C
+C   This is an example of how the RootTuple routines could be called
+C   from within a Herwig analysis in order to output the generated 
+C   events as ROOT ntuples. The example is written for MC@NLO, which
+C   uses Herwig to do parton showering and hadronisation.
+C
+C-----------------------------------------------------------------------
+
 C-----------------------------------------------------------------------
       SUBROUTINE HWABEG
-C     CALLED BEFORE FIRST EVENT ANALYZED
+C     CALLED BY HWDRIVER BEFORE FIRST EVENT ANALYZED
 C-----------------------------------------------------------------------
 C
+C--- SET OUTPUT FILE NAME
       CALL ROOTINIT("../output.root")
       END
+
 
 C-----------------------------------------------------------------------
       SUBROUTINE HWAEND
@@ -16,6 +28,7 @@ C-----------------------------------------------------------------------
 C
       END
 
+
 C-----------------------------------------------------------------------
       SUBROUTINE RCLOS
 C     CALLED BY HWDRIVER AT END OF RUN
@@ -24,9 +37,10 @@ C
       CALL ROOTCLOSE
       END
 
+
 C-----------------------------------------------------------------------
       SUBROUTINE HWANAL
-C     LOOP OVER EVENTS
+C     CALLED BY HWDRIVER FOR EACH EVENT
 C-----------------------------------------------------------------------
 C
       INCLUDE 'HERWIG65.INC'
@@ -46,9 +60,9 @@ C
 C
       IF(IERROR.NE.0) RETURN
 C
-C--- LOOP OVER PARTICLES
+C--- LOOP OVER ALL PARTICLES
+C--- ADD FINAL STATE PARTICLES AND INITIAL STATE PARTONS TO NTUPLE
       DO I=1,NHEP
-C--- ADD FINAL STATE PARTICLES AND INITIAL STATE PARTONS TO ROOTTUPLE
          IF(ISTHEP(I).EQ.1)THEN
             CALL ROOTADDPARTICLE(IDHEP(I),PHEP(1,I),PHEP(2,I),PHEP(3,I),
      &                           PHEP(4,I))

@@ -1,4 +1,17 @@
+//----------------------------------------------------------------------
+//                             RootTuple
+//  Author:  David Hall
+//  Date:    29th August 2012
+//
+//  This is the interface implementation. It declares a global pointer
+//  to an instance of the RootTuple class. This keeps track of the data
+//  being written to file. It also defines how the subroutines use the
+//  RootTuple class's methods.
+//
+//----------------------------------------------------------------------
+
 #include "interface.h"
+#include "RootTuple.h"
 
 // Declare global pointer
 RootTuple *eventHandler;
@@ -51,14 +64,14 @@ void rootaddbool(bool *ptr, const char* branchname, int lbranchname)
     eventHandler->SetBoolBranch(strFtoC(branchname, lbranchname), ptr);
 }//rootaddbool
 
-// Converts a fortran string to a C string
+// Converts a FORTRAN string to a C++ string
 std::string strFtoC(const char *str, int len)
 {
     int tlen = 0;
     char tem;
 
     // Counts non-blank characters in a string str until a first blank character or the end of the string is met
-    while(str[tlen] != ' ' && (tlen < len) && (tem = str[tlen++], tem));
+    while (str[tlen] != ' ' && (tlen < len) && (tem = str[tlen++], tem));
 
     char *tstr = new char[tlen+1];
     strncpy(tstr, str, tlen);

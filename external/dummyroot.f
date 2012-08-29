@@ -1,4 +1,13 @@
-C   Dummy routines for when not linked to RootTuple
+C-----------------------------------------------------------------------
+C                              RootTuple
+C   Author:  David Hall
+C   Date:    29th August 2012
+C
+C   This file provides dummy FORTRAN subroutines for the routines
+C   provided by the RootTuple library.
+C
+C-----------------------------------------------------------------------
+
       subroutine rootinit(name)
       character*30 name
       write(*,*)'This program has not been linked to RootTuple'
