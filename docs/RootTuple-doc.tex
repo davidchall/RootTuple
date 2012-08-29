@@ -37,6 +37,13 @@ make install\end{verbatim}
     \item The \verb|build| directory is no longer required and can be deleted if desired.
 \end{enumerate}
 
+\subsection{What if I don't have CMake-@CMAKE_MINIMUM_VERSION_REQUIRED@ installed?}
+Firstly, I would recommend installing CMake since it is a very nice build system and can be used with lots of other applications. However, if for some reason you are not able to install CMake, it might be possible to create your own Makefile since the source code is very simple, although care must be taken when linking to the ROOT libraries.
+
+You would also need to write your own \verb|FortranCInterface_GLOBAL| macro in a file called \verb|FC_namemangling.h|. This declares the name mangling used by your FORTRAN compiler. More information about this can be found online. Here is an example where a FORTRAN subroutine called \verb|NAME| would be associated with a C++ function called \verb|name_|:
+\begin{verbatim}
+#define FortranCInterface_GLOBAL(name,NAME) name##_\end{verbatim}
+
 \section{Use within FORTRAN HEP programs}
 \label{sec:usage}
 \subsection{Basic usage}
@@ -70,10 +77,6 @@ Some additional subroutines are provided to give greater control over the output
     SUBROUTINE ROOTINIT(FILENAME)
     CHARACTER*n FILENAME\end{verbatim}
 This subroutine opens a new ROOT file with name equal to the string \verb|FILENAME|. If \verb|FILENAME| does not end in \verb|.root| this will be appended automatically. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
-
-\begin{verbatim}
-    SUBROUTINE ROOTWRITE\end{verbatim}
-This subroutine will create a new key in the TTree (see ROOT documentation for more information). This is not required to write the data to disk.
 
 \begin{verbatim}
     SUBROUTINE ROOTCLOSE\end{verbatim}
@@ -114,5 +117,9 @@ This subroutine adds an integer variable to the event file, with name \verb|BRAN
     LOGICAL VAL
     CHARACTER*n BRANCH\end{verbatim}
 This subroutine adds a boolean variable to the event file, with name \verb|BRANCH| and value \verb|VAL|. The length of the string \verb|n| is set within the FORTRAN code, and any trailing whitespace will be removed.
+
+\begin{verbatim}
+    SUBROUTINE ROOTWRITE\end{verbatim}
+This subroutine will create a new key in the TTree (see ROOT documentation for more information). This is not required to write the data to disk.
 
 \end{document}
