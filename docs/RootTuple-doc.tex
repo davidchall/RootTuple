@@ -38,7 +38,7 @@ make install\end{verbatim}
 \end{enumerate}
 
 \subsection{What if I don't have CMake-@CMAKE_MINIMUM_VERSION_REQUIRED@ installed?}
-Firstly, I would recommend installing CMake since it is more portable and allows the source, binary and installation files to be separated easily. It also creates the documentation files if you have \LaTeX~installed.
+Firstly, I would recommend installing CMake since it is more portable and allows the source, binary and installation files to be separated easily. It also creates the documentation files if you have \LaTeX~installed, and a \verb|RootTuple-config| file to make linking easier.
 
 However, if for some reason you are not able to install CMake, I have also included a \verb|Makefile|. Before this can be used, the file \verb|external/FC_namemangling.h| must be copied into the \verb|src| directory and edited as necessary (I believe the example should work for the \verb|gfortran|, \verb|g77| and \verb|ifort| compilers, but I am not giving a guarantee).
 
@@ -61,6 +61,8 @@ When building your program you must link to the RootTuple library, the location 
 The linker must also be able to find the ROOT libraries themselves. The easiest way to do this is to source the ROOT setup script, which should set the environment variables correctly.
 
 At runtime, the end user must add the location of the RootTuple library to their \verb|LD_LIBRARY_PATH| (\verb|DYLD_LIBRARY_PATH| for MacOS). The same is also true for the ROOT libraries (again it is easiest to source the ROOT setup script.)
+
+A \verb|RootTuple-config| file is also installed in the \verb|bin| directory when RootTuple is installed using CMake. This can be used to make linking easier, since it includes information about both RootTuple and the ROOT installation used during its build.
 
 \subsection{Advanced usage}
 Some additional subroutines are provided to give greater control over the output files. For details, please see \textsection\ref{sec:routines}.

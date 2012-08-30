@@ -9,7 +9,7 @@ case $1 in
         rootlibs=$(echo "@ROOT_LIBRARIES@" | tr ';' ' ');
         echo -L@CMAKE_INSTALL_PREFIX@/lib -lRootTuple $rootlibs;;
     --libdir)
-        echo @CMAKE_INSTALL_PREFIX@/lib;;
+        echo @CMAKE_INSTALL_PREFIX@/lib @ROOT_LIBRARY_DIR@;;
     *)
         echo "RootTuple-config: configuration tool for RootTuple library";
         echo;
