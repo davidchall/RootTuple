@@ -38,11 +38,9 @@ make install\end{verbatim}
 \end{enumerate}
 
 \subsection{What if I don't have CMake-@CMAKE_MINIMUM_VERSION_REQUIRED@ installed?}
-Firstly, I would recommend installing CMake since it is a very nice build system and can be used with lots of other applications. However, if for some reason you are not able to install CMake, it might be possible to create your own Makefile since the source code is very simple, although care must be taken when linking to the ROOT libraries.
+Firstly, I would recommend installing CMake since it is more portable and allows the source, binary and installation files to be separated easily. It also creates the documentation files if you have \LaTeX~installed.
 
-You would also need to write your own \verb|FortranCInterface_GLOBAL| macro in a file called \verb|FC_namemangling.h|. This declares the name mangling used by your FORTRAN compiler. More information about this can be found online. Here is an example where a FORTRAN subroutine called \verb|NAME| would be associated with a C++ function called \verb|name_|:
-\begin{verbatim}
-#define FortranCInterface_GLOBAL(name,NAME) name##_\end{verbatim}
+However, if for some reason you are not able to install CMake, I have also included a \verb|Makefile|. Before this can be used, the file \verb|external/FC_namemangling.h| must be copied into the \verb|src| directory and edited as necessary (I believe the example should work for the \verb|gfortran|, \verb|g77| and \verb|ifort| compilers, but I am not giving a guarantee).
 
 \section{Use within FORTRAN HEP programs}
 \label{sec:usage}
