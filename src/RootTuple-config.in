@@ -1,0 +1,21 @@
+#!/bin/sh
+
+case $1 in
+    --version)
+        echo @CPACK_PACKAGE_VERSION@;;
+    --prefix)
+        echo @CMAKE_INSTALL_PREFIX@;;
+    --libs)
+        rootlibs=$(echo "@ROOT_LIBRARIES@" | tr ';' ' ');
+        echo -L@CMAKE_INSTALL_PREFIX@/lib -lRootTuple $rootlibs;;
+    --libdir)
+        echo @CMAKE_INSTALL_PREFIX@/lib;;
+    *)
+        echo "RootTuple-config: configuration tool for RootTuple library";
+        echo;
+        echo "Options:";
+        echo "  RootTuple-config --version : returns RootTuple version";
+        echo "  RootTuple-config --prefix  : returns installation path";
+        echo "  RootTuple-config --libs    : returns the relevant linker line";
+        echo "  RootTuple-config --libdir  : returns library path";;
+esac
