@@ -2,6 +2,7 @@ C-----------------------------------------------------------------------
 C                              RootTuple
 C   Author:  David Hall
 C   Date:    29th August 2012
+C   Website: http://roottuple.hepforge.org/
 C
 C   This is an example of how the RootTuple routines could be called
 C   from within a Herwig analysis in order to output the generated 
