@@ -77,6 +77,8 @@ std::string strFtoC(const char *str, int len)
     char *tstr = new char[tlen+1];
     strncpy(tstr, str, tlen);
     tstr[tlen] = '\0';
+    std::string ret = std::string(tstr);
 
-    return std::string(tstr);
+    delete [] tstr;
+    return ret;
 }//strFtoC
