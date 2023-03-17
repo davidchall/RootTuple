@@ -7,7 +7,9 @@ This is in no way supposed to replace the Les Houches Event File (LHEF) format.
 Rather, it was created to allow FORTRAN programs to output fully differential cross section information as an n-tuple.
 Selection cuts can then be applied to, and histograms filled from, this n-tuple.
 
-A description of the subroutines provided is found in the documentation, together with a guide on how they may be used.
+A description of the subroutines provided is found in the [documentation](https://github.com/davidchall/RootTuple/releases/download/1.0.1/RootTuple-doc-1.0.0.pdf), together with a guide on how they may be used.
+*Note:* This PDF was created for RootTuple 1.0.0 and makes outdated references to files hosted on HepForge.
+The latest version of RootTuple is available in GitHub.
 
 ## Quick start installation
 
