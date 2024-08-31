@@ -110,10 +110,15 @@ Else (${ROOT_CONFIG} MATCHES "ROOT_CONFIG-NOTFOUND")
   String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" req_root_minor_vers "${ROOT_MIN_VERSION}")
   String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+)" "\\1" req_root_patch_vers "${ROOT_MIN_VERSION}")
    
+    # converte old ROOT versions to the new major.minor.patch style. If it is already the new style, does nothing.
+  String(REGEX REPLACE "^([0-9]+\\.[0-9][0-9]+)\\/[0-9][0-9]+.*" "\\1" found_root_majorminor_vers "${ROOT_VERSION}")
+  String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" found_root_patch_vers "${ROOT_VERSION}")  
+  String(CONCAT ROOT_VERSION "${found_root_majorminor_vers}" "." "${found_root_patch_vers}")
+
   # and now the version string given by qmake
-  String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\/[0-9][0-9]+.*" "\\1" found_root_major_vers "${ROOT_VERSION}")
-  String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\/[0-9][0-9]+.*" "\\1" found_root_minor_vers "${ROOT_VERSION}")
-  String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\/([0-9][0-9]+).*" "\\1" found_root_patch_vers "${ROOT_VERSION}")
+  String(REGEX REPLACE "^([0-9]+)\\.[0-9][0-9]+\\.[0-9][0-9]+.*" "\\1" found_root_major_vers "${ROOT_VERSION}")
+  String(REGEX REPLACE "^[0-9]+\\.([0-9][0-9])+\\.[0-9][0-9]+.*" "\\1" found_root_minor_vers "${ROOT_VERSION}")
+  String(REGEX REPLACE "^[0-9]+\\.[0-9][0-9]+\\.([0-9][0-9]+).*" "\\1" found_root_patch_vers "${ROOT_VERSION}")
 
   If (found_root_major_vers LESS 5)
     Message(FATAL_ERROR "Invalid ROOT version \"${ROOT_VERSION}\", at least major version 4 is required, e.g. \"5.00/00\"")
