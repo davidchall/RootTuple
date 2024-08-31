@@ -13,12 +13,12 @@ The latest version of RootTuple is available in GitHub.
 
 ## Quick start installation
 
-Firstly, we require ROOT to be installed on your system (you can download it [here](http://root.cern.ch/drupal/content/downloading-root)).
+Firstly, we require ROOT to be installed on your system (you can download it [here](https://root.cern/install/)).
 Then, during installation, RootTuple needs `root-config` to be in your `PATH` environment variable.
 The easiest way to achieve this is to source the ROOT setup script (e.g. `thisroot.sh`).
 There are two possible installation methods for RootTuple, both of which are further described in the documentation.
 
-The recommended installation method uses the CMake build system v2.8.6 or higher (which can be downloaded [here](http://www.cmake.org/cmake/resources/software.html)).
+The recommended installation method uses the CMake build system v2.8.6 or higher (which can be downloaded [here](https://cmake.org/download/)).
 This has the advantage that it assesses your FORTRAN compiler for its name mangling conventions, allows the installation to be separated from the source code and also produces a `RootTuple-config` executable.
 
 ```bash
